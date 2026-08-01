@@ -18,6 +18,7 @@ import sys
 sys.path.append('/lib/orbit')
 from machine import Pin, SPI
 from ili9341_display import ILI9341Display
+from colors import *
 import time
 import gc
 
@@ -42,15 +43,6 @@ print("Display initialized.")
 
 gc.collect()  # reclaim any garbage from init before measuring
 print("Free memory after display init:", gc.mem_free(), "bytes")
-
-
-# A few RGB565 color constants for the tests
-BLACK = 0x0000
-WHITE = 0xFFFF
-RED   = 0xF800
-GREEN = 0x07E0
-BLUE  = 0x001F
-
 
 def pause(label, seconds=1.5):
     """Print a label and give time to visually inspect the screen."""

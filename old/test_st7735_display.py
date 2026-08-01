@@ -2,6 +2,13 @@
 Simple test script for ST7735Display.
 
 Wiring assumptions (adjust pin numbers to match your actual wiring):
+    SCK  -> GP2
+    MOSI -> GP3
+    (MISO not used - display is write-only)
+    CS   -> GP5
+    DC   -> GP6
+    RST  -> GP7
+    
     SCK  -> GP18
     MOSI -> GP19
     (MISO not used - display is write-only)
@@ -21,7 +28,6 @@ import sys
 sys.path.append('/lib/orbit')
 from machine import Pin, SPI
 from st7735_display import ST7735Display  # adjust import to match your file/module name
-from colors import BLACK, WHITE, RED, GREEN, BLUE
 from time import sleep, sleep_us, ticks_ms, ticks_diff
 import gc
 
@@ -50,8 +56,15 @@ print("Display initialized.")
 gc.collect()  # reclaim any garbage from init before measuring
 print("Free memory after display init:", gc.mem_free(), "bytes")
 
+# A few RGB565 color constants for the tests
+BLACK = 0x0000
+WHITE = 0xFFFF
+RED   = 0xF800
+GREEN = 0x07E0
+BLUE  = 0x001F
 
-def pause(label: str, seconds: float = 1.5) -> None:
+
+def pause(label, seconds=1.5):
     """Print a label and give time to visually inspect the screen."""
     print(label)
     sleep(seconds)
